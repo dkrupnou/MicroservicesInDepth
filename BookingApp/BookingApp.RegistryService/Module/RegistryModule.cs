@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using BookingApp.RegistryService.BusinessLogicLayer;
 using BookingApp.RegistryService.Module.Model;
 using Nancy;
 using Nancy.ModelBinding;
@@ -8,53 +7,38 @@ namespace BookingApp.RegistryService.Module
 {
     public class RegistryModule : NancyModule
     {
-        private static readonly IDictionary<string, List<ServiceRegistrationModel>> Storage = new Dictionary<string, List<ServiceRegistrationModel>>();
-
-        public RegistryModule() : base("/registry")
+        public RegistryModule(IRegistryService registryService) : base("/registry")
         {
-            Get("/{serviceTag}", parameters =>
+            Get("/{serviceTag}", async parameters =>
             {
                 var serviceTag = (string) parameters.serviceTag;
-                if (!Storage.ContainsKey(serviceTag))
+                var urls = await registryService.GetServiceInstancesUrls(serviceTag);
+                if (urls.Length == 0)
                     return HttpStatusCode.NotFound;
 
-                var serviceRegistrations = Storage[serviceTag];
-                return serviceRegistrations.Select(x => x.ServiceUrl).ToArray();
+                return urls;
             });
 
-            Delete("/{serviceTag}/{serviceName}", parameters =>
+            Delete("/{serviceTag}/{serviceName}", async parameters =>
             {
                 var serviceTag = (string) parameters.serviceTag;
                 var serviceName = (string) parameters.serviceName;
-                if(!Storage.ContainsKey(serviceTag))
-                    return HttpStatusCode.NotFound;
 
-                var serviceRegistrations = Storage[serviceTag];
-                var serviceInstance = serviceRegistrations.Find(x => x.ServiceName.Equals(serviceName));
-                if(serviceInstance == null)
-                    return HttpStatusCode.NotFound;
-
-                serviceRegistrations.Remove(serviceInstance);
-                if (serviceRegistrations.Count == 0)
-                    Storage.Remove(serviceTag);
-
-                return HttpStatusCode.OK;
+                var success = await registryService.UnregisterService(serviceTag, serviceName);
+                return success ? HttpStatusCode.OK : HttpStatusCode.NotFound;
             });
 
-            Post("/", _ =>
+            Post("/", async _ =>
             {
                 var serviceRegistration = this.Bind<ServiceRegistrationModel>();
-                if (Storage.ContainsKey(serviceRegistration.ServiceTag))
-                {
-                    var serviceRegistrations = Storage[serviceRegistration.ServiceTag];
-                    serviceRegistrations.Add(serviceRegistration);
-                }
-                else
-                {
-                    Storage.Add(serviceRegistration.ServiceTag, new List<ServiceRegistrationModel>() { serviceRegistration });
-                }
+                var success = 
+                    await registryService.RegisterService(
+                        serviceRegistration.ServiceTag,
+                        serviceRegistration.ServiceName,
+                        serviceRegistration.ServiceUrl
+                    );
 
-                return HttpStatusCode.OK;
+                return success ? HttpStatusCode.OK : HttpStatusCode.NotFound;
             });
         }
     }
