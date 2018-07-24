@@ -1,4 +1,4 @@
-﻿namespace BookingApp.RegistryService.Module.Model
+﻿namespace BookingApp.RegistryService.ServiceLayer.Model
 {
     public class ServiceRegistrationModel
     {

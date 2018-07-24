@@ -32,6 +32,11 @@ namespace BookingApp.RegistryService.BusinessLogicLayer
         {
             var serviceInstances = await _repository.Get(tag);
             var serviceInstance = serviceInstances?.FirstOrDefault(x => x.Name.Equals(name));
+            if (serviceInstance != null)
+            {
+                await _repository.Remove(serviceInstance);
+            }
+
             return serviceInstance != null;
         }
 
