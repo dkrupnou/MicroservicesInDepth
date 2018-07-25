@@ -19,7 +19,7 @@ namespace BookingApp.RegistryService
             //penalty.
             services.AddSingleton<ConnectionMultiplexer>(sp =>
             {
-                var configuration = ConfigurationOptions.Parse("localhost:32780", true);
+                var configuration = ConfigurationOptions.Parse("localhost:32783", true);
                 configuration.ResolveDns = true;
                 return ConnectionMultiplexer.Connect(configuration);
             });
