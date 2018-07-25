@@ -2,6 +2,7 @@
 using BookingApp.RegistryService.DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 
@@ -9,17 +10,19 @@ namespace BookingApp.RegistryService
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+
+        public Startup()
+        {
+            Configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            //By connecting here we are making sure that our service
-            //cannot start until redis is ready. This might slow down startup,
-            //but given that there is a delay on resolving the ip address
-            //and then creating the connection it seems reasonable to move
-            //that cost to startup instead of having the first request pay the
-            //penalty.
             services.AddSingleton<ConnectionMultiplexer>(sp =>
             {
-                var configuration = ConfigurationOptions.Parse("localhost:32783", true);
+                var connectionString = Configuration.GetSection("redis:connectionString").Value;
+                var configuration = ConfigurationOptions.Parse(connectionString, true);
                 configuration.ResolveDns = true;
                 return ConnectionMultiplexer.Connect(configuration);
             });
