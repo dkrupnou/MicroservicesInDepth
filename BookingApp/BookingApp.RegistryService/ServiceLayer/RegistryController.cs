@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BookingApp.RegistryService.BusinessLogicLayer;
 using BookingApp.RegistryService.ServiceLayer.Model;
 using Microsoft.AspNetCore.Mvc;

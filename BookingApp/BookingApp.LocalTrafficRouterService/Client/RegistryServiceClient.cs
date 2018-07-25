@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace BookingApp.LocalTrafficManagerService.Client
+namespace BookingApp.LocalTrafficRouterService.Client
 {
     public interface IRegistryServiceClient
     {
