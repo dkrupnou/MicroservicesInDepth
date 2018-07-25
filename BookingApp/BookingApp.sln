@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.LocalTrafficManagerService", "BookingApp.LocalTrafficManagerService\BookingApp.LocalTrafficManagerService.csproj", "{8C470221-3756-4394-91EE-0DFDAFCCA8BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.LocalTrafficManagerService", "BookingApp.LocalTrafficManagerService\BookingApp.LocalTrafficManagerService.csproj", "{8C470221-3756-4394-91EE-0DFDAFCCA8BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.RegistryService", "BookingApp.RegistryService\BookingApp.RegistryService.csproj", "{CD16802F-4EAD-47CC-80B8-6E2DA24C0551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.RegistryService", "BookingApp.RegistryService\BookingApp.RegistryService.csproj", "{CD16802F-4EAD-47CC-80B8-6E2DA24C0551}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TechnicalServices", "TechnicalServices", "{30DB58A4-B294-498B-BC1C-C787CCE2ED88}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessServices", "BusinessServices", "{A1C80E56-2850-4A39-9D3A-C276A57E0251}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.ApiGatewayService", "BookingApp.ApiGatewayService\BookingApp.ApiGatewayService.csproj", "{F4CE3339-4444-4509-A8E9-E80DFBCD2DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.ApiGatewayService", "BookingApp.ApiGatewayService\BookingApp.ApiGatewayService.csproj", "{F4CE3339-4444-4509-A8E9-E80DFBCD2DA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
