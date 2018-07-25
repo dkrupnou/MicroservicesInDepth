@@ -1,5 +1,6 @@
 ﻿using BookingApp.RegistryService.BusinessLogicLayer;
 using BookingApp.RegistryService.DataAccessLayer;
+using BookingApp.RegistryService.Extension;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,14 +20,7 @@ namespace BookingApp.RegistryService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ConnectionMultiplexer>(sp =>
-            {
-                var connectionString = Configuration.GetSection("redis:connectionString").Value;
-                var configuration = ConfigurationOptions.Parse(connectionString, true);
-                configuration.ResolveDns = true;
-                return ConnectionMultiplexer.Connect(configuration);
-            });
-
+            services.AddRedisConnectionMultiplexer(Configuration);
             services.AddTransient<IRegistryRepository, RedisRegistryRepository>();
             services.AddTransient<IRegistryManager, RegistryManager>();
             services.AddMvc();
