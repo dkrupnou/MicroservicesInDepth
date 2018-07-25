@@ -9,18 +9,18 @@ namespace BookingApp.RegistryService.ServiceLayer
     [Route("registry")]
     public class RegistryController : Controller
     {
-        private readonly IRegistryService _registryService;
+        private readonly IRegistryManager _registryManager;
 
-        public RegistryController(IRegistryService registryService)
+        public RegistryController(IRegistryManager registryManager)
         {
-            _registryService = registryService;
+            _registryManager = registryManager;
         }
 
         [HttpGet]
         [Route("{serviceTag}")]
         public async Task<IActionResult> Get(string serviceTag)
         {
-            var urls = await _registryService.GetServiceInstancesUrls(serviceTag);
+            var urls = await _registryManager.GetServiceInstancesUrls(serviceTag);
             if (urls == null || urls.Length == 0)
                 return NotFound();
 
@@ -32,7 +32,7 @@ namespace BookingApp.RegistryService.ServiceLayer
         public async Task<IActionResult> Post([FromBody]ServiceRegistrationModel serviceRegistration)
         {
             var success =
-                await _registryService.RegisterService(
+                await _registryManager.RegisterService(
                     serviceRegistration.ServiceTag,
                     serviceRegistration.ServiceName,
                     serviceRegistration.ServiceUrl
@@ -48,7 +48,7 @@ namespace BookingApp.RegistryService.ServiceLayer
         [Route("{serviceTag}/{serviceName}")]
         public async Task<IActionResult> Delete(string serviceTag, string serviceName)
         {
-            var success = await _registryService.UnregisterService(serviceTag, serviceName);
+            var success = await _registryManager.UnregisterService(serviceTag, serviceName);
             if (!success)
                 return NotFound();
 

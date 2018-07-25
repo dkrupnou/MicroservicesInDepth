@@ -11,7 +11,7 @@ namespace BookingApp.RegistryService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IRegistryRepository, InMemoryRegistryRepository>();
-            services.AddScoped<IRegistryService, BusinessLogicLayer.RegistryService>();
+            services.AddScoped<IRegistryManager, RegistryManager>();
             services.AddMvc();
         }
 

@@ -5,11 +5,11 @@ using BookingApp.RegistryService.DataAccessLayer;
 
 namespace BookingApp.RegistryService.BusinessLogicLayer
 {
-    public class RegistryService : IRegistryService
+    public class RegistryManager : IRegistryManager
     {
         private readonly IRegistryRepository _repository;
 
-        public RegistryService(IRegistryRepository repository)
+        public RegistryManager(IRegistryRepository repository)
         {
             _repository = repository;
         }
