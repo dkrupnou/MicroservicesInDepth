@@ -5,22 +5,21 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Redis;
 
 namespace BookingApp.RegistryService
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; set; }
+        private readonly IConfiguration _configuration;
 
-        public Startup()
+        public Startup(IConfiguration configuration)
         {
-            Configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            _configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRedisConnectionMultiplexer(Configuration);
+            services.AddRedisConnectionMultiplexer(_configuration);
             services.AddTransient<IRegistryRepository, RedisRegistryRepository>();
             services.AddTransient<IRegistryManager, RegistryManager>();
             services.AddMvc();

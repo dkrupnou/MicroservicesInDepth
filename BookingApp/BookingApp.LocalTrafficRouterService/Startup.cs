@@ -8,16 +8,16 @@ namespace BookingApp.LocalTrafficRouterService
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; set; }
+        private readonly IConfiguration _configuration;
 
-        public Startup()
+        public Startup(IConfiguration configuration)
         {
-            Configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            _configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var registryServiceUrl = Configuration.GetSection("registry:url").Value;
+            var registryServiceUrl = _configuration.GetSection("registry:url").Value;
             services.AddTransient<IRegistryServiceClient>(x => new RegistryServiceClient(registryServiceUrl));
             services.AddTransient<ILocalTrafficRouter, LocalTrafficRouter>();
             services.AddMvc();

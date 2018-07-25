@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace BookingApp.LocalTrafficRouterService
 {
@@ -10,10 +11,18 @@ namespace BookingApp.LocalTrafficRouterService
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseUrls("http://*:5000")
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddCommandLine(args)
+                .AddEnvironmentVariables()
                 .Build();
+
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseConfiguration(config)
+                .Build();
+        }
     }
 }
