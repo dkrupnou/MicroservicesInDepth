@@ -1,11 +1,10 @@
-﻿using BookingApp.LocalTrafficManagerService.Client;
+﻿using BookingApp.LocalTrafficRouterService.BusinessLogicLayer;
+using BookingApp.LocalTrafficRouterService.Client;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nancy.Owin;
 
-namespace BookingApp.LocalTrafficManagerService
+namespace BookingApp.LocalTrafficRouterService
 {
     public class Startup
     {
@@ -18,17 +17,15 @@ namespace BookingApp.LocalTrafficManagerService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var registryServiceUrl = Configuration["RegistryServiceUrl"];
-            services.AddSingleton<IRegistryServiceClient>(x => new RegistryServiceClient(registryServiceUrl));
+            var registryServiceUrl = Configuration.GetSection("registry:url").Value;
+            services.AddTransient<IRegistryServiceClient>(x => new RegistryServiceClient(registryServiceUrl));
+            services.AddTransient<ILocalTrafficRouter, LocalTrafficRouter>();
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseOwin(x => x.UseNancy(options =>
-                {
-                    options.Bootstrapper = new Bootstrapper(app.ApplicationServices);
-                })
-            );
+            app.UseMvc();
         }
     }
 }
