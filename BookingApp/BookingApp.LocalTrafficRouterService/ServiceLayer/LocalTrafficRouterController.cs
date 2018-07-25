@@ -1,6 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using BookingApp.LocalTrafficRouterService.Client;
+﻿using System.Threading.Tasks;
+using BookingApp.LocalTrafficRouterService.BusinessLogicLayer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingApp.LocalTrafficRouterService.ServiceLayer
@@ -9,26 +8,21 @@ namespace BookingApp.LocalTrafficRouterService.ServiceLayer
     [Route("router")]
     public class LocalTrafficRouterController : Controller
     {
-        private readonly IRegistryServiceClient _registryServiceClient;
+        private readonly ILocalTrafficRouter _router;
 
-        public LocalTrafficRouterController(IRegistryServiceClient registryServiceClient)
+        public LocalTrafficRouterController(ILocalTrafficRouter router)
         {
-            _registryServiceClient = registryServiceClient;
+            _router = router;
         }
 
         [Route("{serviceTag}")]
         public async Task<IActionResult> Get(string serviceTag)
         {
-            try
-            {
-                var serviceUrls = await _registryServiceClient.GetServiceUrlsByTag(serviceTag);
-                return Ok(serviceUrls[new Random().Next(serviceUrls.Length)]);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
+            var routedUrl = await _router.Route(serviceTag);
+            if (string.IsNullOrEmpty(routedUrl))
                 return NotFound();
-            }
+
+            return Ok(routedUrl);
         }
     }
 }

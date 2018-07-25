@@ -24,9 +24,10 @@ namespace BookingApp.LocalTrafficRouterService.Client
         {
             using (var httpClient = new HttpClient() { BaseAddress = new Uri(_serviceUrl) })
             {
+                httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var httpResponse = await httpClient.GetAsync($"/registry/{serviceTag}");
+                var httpResponse = await httpClient.GetAsync($"/registry/{serviceTag}/urls");
                 httpResponse.EnsureSuccessStatusCode();
 
                 var content = await httpResponse.Content.ReadAsStringAsync();
