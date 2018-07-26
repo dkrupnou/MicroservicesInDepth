@@ -1,6 +1,6 @@
 ﻿namespace BookingApp.BookingService.Configuration
 {
-    public class RabbitOptions
+    public class RabbitMQOptions
     {
         public string Username { get; set; }
         public string Password { get; set; }
