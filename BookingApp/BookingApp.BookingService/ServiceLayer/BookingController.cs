@@ -1,5 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using BookingApp.BookingService.BusinessLogicLayer;
+using BookingApp.BookingService.ServiceLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingApp.BookingService.ServiceLayer
@@ -8,14 +9,18 @@ namespace BookingApp.BookingService.ServiceLayer
     [Route("booking")]
     public class BookingController : Controller
     {
-        public BookingController()
-        {  
+        private readonly IBookingService _bookingService;
+
+        public BookingController(IBookingService bookingService)
+        {
+            _bookingService = bookingService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post([FromBody]BookingRequestModel bookingRequest)
         {
-            throw new NotImplementedException();
+            var requestId = await _bookingService.BookProperty(bookingRequest.ProperyId, bookingRequest.Price);
+            return Ok(requestId);
         }
     }
 }

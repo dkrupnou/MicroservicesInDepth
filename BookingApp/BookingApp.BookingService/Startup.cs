@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using BookingApp.BookingService.BusinessLogicLayer;
+using BookingApp.BookingService.Configuration;
+using BookingApp.BookingService.DataAccessLayer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +19,11 @@ namespace BookingApp.BookingService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.Configure<RabbitMQOptions>(_configuration.GetSection("rabbitmq"));
+
+            services.AddSingleton<IEventEmmiter, BookingEventEmmiter>();
+            services.AddTransient<IBookingService, BusinessLogicLayer.BookingService>();
             services.AddMvc();
         }
 
