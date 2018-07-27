@@ -17,9 +17,16 @@ namespace BookingApp.BookingService.ServiceLayer
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]BookingRequestModel bookingRequest)
+        public async Task<IActionResult> Post([FromBody]BookingRequestModel request)
         {
-            var requestId = await _bookingService.BookProperty(bookingRequest.ProperyId, bookingRequest.Price);
+            var bookingRequest = new BookingRequest()
+            {
+                PropertyId = request.PropertyId,
+                CustomerId = request.CustomerId,
+                From = request.Dates.From,
+                To = request.Dates.To
+            };
+            var requestId = await _bookingService.BookProperty(bookingRequest);
             return Ok(requestId);
         }
     }

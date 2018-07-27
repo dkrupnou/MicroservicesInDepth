@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace BookingApp.BookingService.DataAccessLayer.Model
+namespace BookingApp.BookingService.BusinessLogicLayer
 {
-    public class BookingRequestPlacedEvent
+    public class BookingRequest
     {
-        public DateTime Timestamp { get; set; }
-        public Guid RequestId { get; set; }
         public Guid PropertyId { get; set; }
         public Guid CustomerId { get; set; }
         public DateTime From { get; set; }

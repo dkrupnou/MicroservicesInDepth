@@ -5,6 +5,6 @@ namespace BookingApp.BookingService.BusinessLogicLayer
 {
     public interface IBookingService
     {
-        Task<Guid> BookProperty(Guid properyId, double price);
+        Task<Guid> BookProperty(BookingRequest request);
     }
 }

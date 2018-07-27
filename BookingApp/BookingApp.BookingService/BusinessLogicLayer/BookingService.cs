@@ -14,14 +14,16 @@ namespace BookingApp.BookingService.BusinessLogicLayer
             _eventEmmiter = eventEmmiter;
         }
 
-        public async Task<Guid> BookProperty(Guid properyId, double price)
+        public async Task<Guid> BookProperty(BookingRequest request)
         {
             var bookingRequestPlacedEvent = new BookingRequestPlacedEvent()
             {
-                RequestId = Guid.NewGuid(),
                 Timestamp = DateTime.UtcNow,
-                BookingPropertyId = properyId,
-                Price = price
+                RequestId = Guid.NewGuid(),
+                PropertyId = request.PropertyId,
+                CustomerId = request.CustomerId,
+                From = request.From,
+                To = request.To
             };
 
             await _eventEmmiter.EmitBookingRequestPlacedEvent(bookingRequestPlacedEvent);
