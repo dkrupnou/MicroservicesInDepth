@@ -12,7 +12,7 @@ namespace BookingApp.PaymentService.DataAccessLayer
     public class PaymentEventEmmiter : IEventEmmiter
     {
         private readonly ConnectionFactory _connectionFactory;
-        private static string PaymentProcessedEventsQueueName = "payment-processed-events";
+        private static string PaymentProcessedEventsQueueName = "payment-events";
 
         public PaymentEventEmmiter(IOptions<RabbitMQOptions> options)
         {
@@ -27,7 +27,7 @@ namespace BookingApp.PaymentService.DataAccessLayer
             };
         }
 
-        public async Task EmitPaymentProcessedEvent(PaymentProcessedEvent @event)
+        public async Task EmitEvent(PaymentEvent @event)
         {
             using (IConnection conn = _connectionFactory.CreateConnection())
             {

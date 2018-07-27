@@ -5,6 +5,6 @@ namespace BookingApp.PaymentService.DataAccessLayer
 {
     public interface IEventEmmiter
     {
-        Task EmitPaymentProcessedEvent(PaymentProcessedEvent @event);
+        Task EmitEvent(PaymentEvent @event);
     }
 }

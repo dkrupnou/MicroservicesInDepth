@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using BookingApp.PaymentService.BusinessLogicLayer.Model;
 using BookingApp.PaymentService.DataAccessLayer;
 using BookingApp.PaymentService.DataAccessLayer.Model;
 
@@ -14,18 +14,16 @@ namespace BookingApp.PaymentService.BusinessLogicLayer
             _eventEmmiter = eventEmmiter;
         }
 
-        public async Task<Guid> ProcessPayment(Guid bookingId, bool paid)
+        public async Task ProcessPaidPayment(PaidPaymentDetails paidPaymentDetails)
         {
-            var paymentProcessedEvent = new PaymentProcessedEvent()
-            {
-                Timestamp = DateTime.UtcNow,
-                RequestId = Guid.NewGuid(),
-                BookingId = bookingId,
-                Paid = paid
-            };
+            var paymentPaidEvent = new PaymentPaidEvent(paidPaymentDetails.BookingId, paidPaymentDetails.PaymentId, paidPaymentDetails.Amount);
+            await _eventEmmiter.EmitEvent(paymentPaidEvent);
+        }
 
-            await _eventEmmiter.EmitPaymentProcessedEvent(paymentProcessedEvent);
-            return paymentProcessedEvent.RequestId;
+        public async Task ProcessRejectedPayment(RejectedPaymentDetails rejectedPaymentDetails)
+        {
+            var paymentRejectedEvent = new PaymentRejectedEvent(rejectedPaymentDetails.BookingId, rejectedPaymentDetails.Reason);
+            await _eventEmmiter.EmitEvent(paymentRejectedEvent);
         }
     }
 }

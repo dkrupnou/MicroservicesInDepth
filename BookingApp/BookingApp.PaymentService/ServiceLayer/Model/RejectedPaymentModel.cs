@@ -2,9 +2,9 @@
 
 namespace BookingApp.PaymentService.ServiceLayer.Model
 {
-    public class PaymentRequestModel
+    public class RejectedPaymentModel
     {
         public Guid BookingId { get; set; }
-        public bool Paid { get; set; }
+        public string Reason { get; set; }
     }
 }

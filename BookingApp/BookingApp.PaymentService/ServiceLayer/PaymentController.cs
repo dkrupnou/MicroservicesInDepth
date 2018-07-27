@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BookingApp.PaymentService.BusinessLogicLayer;
+using BookingApp.PaymentService.BusinessLogicLayer.Model;
 using BookingApp.PaymentService.ServiceLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,32 @@ namespace BookingApp.PaymentService.ServiceLayer
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]PaymentRequestModel request)
+        [Route("paid")]
+        public async Task<IActionResult> PostPaid([FromBody]PaidPaymentModel model)
         {
-            var paymentId = await _paymentService.ProcessPayment(request.BookingId, request.Paid);
-            return Ok(paymentId);
+            var details = new PaidPaymentDetails()
+            {
+                PaymentId = model.PaymentId,
+                BookingId = model.BookingId,
+                Amount = model.Amount
+            };
+
+            await _paymentService.ProcessPaidPayment(details);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("rejected")]
+        public async Task<IActionResult> PostRejected([FromBody]RejectedPaymentModel model)
+        {
+            var details = new RejectedPaymentDetails()
+            {
+                BookingId = model.BookingId,
+                Reason = model.Reason
+            };
+
+            await _paymentService.ProcessRejectedPayment(details);
+            return Ok();
         }
     }
 }

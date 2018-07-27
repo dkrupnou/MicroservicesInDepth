@@ -1,10 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using BookingApp.PaymentService.BusinessLogicLayer.Model;
 
 namespace BookingApp.PaymentService.BusinessLogicLayer
 {
     public interface IPaymentService
     {
-        Task<Guid> ProcessPayment(Guid bookingId, bool paid);
+        Task ProcessPaidPayment(PaidPaymentDetails paidPaymentDetails);
+        Task ProcessRejectedPayment(RejectedPaymentDetails rejectedPaymentDetails);
     }
 }
