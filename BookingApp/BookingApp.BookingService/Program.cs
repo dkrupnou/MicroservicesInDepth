@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace BookingApp.LocalTrafficRouterService
+namespace BookingApp.BookingService
 {
     public class Program
     {

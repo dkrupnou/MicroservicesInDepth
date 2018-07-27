@@ -1,12 +1,12 @@
-﻿using BookingApp.RegistryService.BusinessLogicLayer;
-using BookingApp.RegistryService.DataAccessLayer;
-using BookingApp.RegistryService.Extension;
+﻿using BookingApp.BookingService.BusinessLogicLayer;
+using BookingApp.BookingService.Configuration;
+using BookingApp.BookingService.DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookingApp.RegistryService
+namespace BookingApp.BookingService
 {
     public class Startup
     {
@@ -19,9 +19,11 @@ namespace BookingApp.RegistryService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRedisConnectionMultiplexer(_configuration);
-            services.AddTransient<IRegistryRepository, RedisRegistryRepository>();
-            services.AddTransient<IRegistryManager, RegistryManager>();
+            services.AddOptions();
+            services.Configure<RabbitMQOptions>(_configuration.GetSection("rabbitmq"));
+
+            services.AddSingleton<IEventEmmiter, BookingEventEmmiter>();
+            services.AddTransient<IBookingService, BusinessLogicLayer.BookingService>();
             services.AddMvc();
         }
 

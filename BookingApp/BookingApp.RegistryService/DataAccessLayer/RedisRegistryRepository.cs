@@ -11,7 +11,7 @@ namespace BookingApp.RegistryService.DataAccessLayer
         private readonly IDatabaseAsync _db;
         private readonly string _servicesTagsKey = "tags";
 
-        public RedisRegistryRepository(ConnectionMultiplexer multiplexer)
+        public RedisRegistryRepository(IConnectionMultiplexer multiplexer)
         {
             _db = multiplexer.GetDatabase();
         }
