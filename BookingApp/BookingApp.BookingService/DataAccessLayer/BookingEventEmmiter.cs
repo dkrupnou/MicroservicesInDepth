@@ -12,7 +12,7 @@ namespace BookingApp.BookingService.DataAccessLayer
     public class BookingEventEmmiter : IEventEmmiter
     {
         private readonly ConnectionFactory _connectionFactory;
-        private static string BookingRequestPlacedEventsQueueName = "booking-request-placed";
+        private static string BookingRequestPlacedEventsQueueName = "booking-request-placed-events";
 
         public BookingEventEmmiter(IOptions<RabbitMQOptions> options)
         {
