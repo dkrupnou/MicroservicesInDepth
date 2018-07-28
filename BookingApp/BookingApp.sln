@@ -13,15 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessServices", "Busines
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.ApiGatewayService", "BookingApp.ApiGatewayService\BookingApp.ApiGatewayService.csproj", "{F4CE3339-4444-4509-A8E9-E80DFBCD2DA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.BookingService", "BookingApp.BookingService\BookingApp.BookingService.csproj", "{406E5A28-20E1-490E-878F-17746830974C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.BookingService", "BookingApp.BookingService\BookingApp.BookingService.csproj", "{406E5A28-20E1-490E-878F-17746830974C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.PaymentService", "BookingApp.PaymentService\BookingApp.PaymentService.csproj", "{8B1D0BF2-C6DC-4CFB-80B0-9EBDBD08EFDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.PaymentService", "BookingApp.PaymentService\BookingApp.PaymentService.csproj", "{8B1D0BF2-C6DC-4CFB-80B0-9EBDBD08EFDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.BookingManagerService", "BookingApp.BookingManagerService\BookingApp.BookingManagerService.csproj", "{F514E88F-2610-4A7C-AFE6-4B1D901BF0F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.EventProcessor", "BookingApp.EventProcessor\BookingApp.EventProcessor.csproj", "{F514E88F-2610-4A7C-AFE6-4B1D901BF0F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.NotificationService", "BookingApp.NotificationService\BookingApp.NotificationService.csproj", "{C51DEC21-6438-4696-8AEC-4AC7C73511B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.NotificationService", "BookingApp.NotificationService\BookingApp.NotificationService.csproj", "{C51DEC21-6438-4696-8AEC-4AC7C73511B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.BookingHistoryService", "BookingApp.BookingHistoryService\BookingApp.BookingHistoryService.csproj", "{8A1A9FD5-A5C2-404A-901D-F29570281394}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.BookingHistoryService", "BookingApp.BookingHistoryService\BookingApp.BookingHistoryService.csproj", "{8A1A9FD5-A5C2-404A-901D-F29570281394}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

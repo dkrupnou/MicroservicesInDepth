@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace BookingApp.BookingManagerService
+namespace BookingApp.EventProcessor
 {
     public class Program
     {

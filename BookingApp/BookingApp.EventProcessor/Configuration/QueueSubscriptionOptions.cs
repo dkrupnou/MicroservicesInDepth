@@ -1,4 +1,4 @@
-﻿namespace BookingApp.BookingManagerService.Configuration
+﻿namespace BookingApp.EventProcessor.Configuration
 {
     public class QueueSubscriptionOptions
     {

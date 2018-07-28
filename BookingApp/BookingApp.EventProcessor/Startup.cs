@@ -1,10 +1,10 @@
-﻿using BookingApp.BookingManagerService.Configuration;
+﻿using BookingApp.EventProcessor.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookingApp.BookingManagerService
+namespace BookingApp.EventProcessor
 {
     public class Startup
     {
