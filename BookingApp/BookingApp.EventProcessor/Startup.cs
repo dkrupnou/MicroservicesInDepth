@@ -1,8 +1,11 @@
 ﻿using BookingApp.EventProcessor.Configuration;
+using BookingApp.EventProcessor.DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace BookingApp.EventProcessor
 {
@@ -20,6 +23,9 @@ namespace BookingApp.EventProcessor
             services.AddOptions();
             services.Configure<RabbitMQOptions>(_configuration.GetSection("rabbitmq"));
             services.Configure<QueueSubscriptionOptions>(_configuration.GetSection("subscriptions"));
+
+            services.AddTransient<IConnectionFactory, RabbitMQConnectionFactory>();
+            services.AddTransient(typeof(EventingBasicConsumer), typeof(RabbitMQEventingConsumer));
 
             services.AddMvc();
         }
