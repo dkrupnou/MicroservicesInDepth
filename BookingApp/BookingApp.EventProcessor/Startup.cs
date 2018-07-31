@@ -1,4 +1,5 @@
-﻿using BookingApp.EventProcessor.Configuration;
+﻿using BookingApp.EventProcessor.BusinessLogicLayer;
+using BookingApp.EventProcessor.Configuration;
 using BookingApp.EventProcessor.DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,13 +26,16 @@ namespace BookingApp.EventProcessor
             services.Configure<QueueSubscriptionOptions>(_configuration.GetSection("subscriptions"));
 
             services.AddTransient<IConnectionFactory, RabbitMQConnectionFactory>();
-            services.AddTransient(typeof(EventingBasicConsumer), typeof(RabbitMQEventingConsumer));
+            services.AddTransient<EventingBasicConsumer, RabbitMQEventingConsumer>();
+            services.AddSingleton<IEventSubscriber, RabbitMQEventSubscriber>();
+            services.AddSingleton<IEventProcessor, BusinessLogicLayer.EventProcessor>();
 
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IEventProcessor eventProcessor)
         {
+            eventProcessor.Start();
             app.UseMvc();
         }
     }
